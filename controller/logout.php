@@ -1,8 +1,11 @@
 <?php
-session_start();
-session_unset();
-session_destroy();
+// controller/logout.php
+require_once __DIR__ . '/../model/auth.php';
 
-header("Location: ../view/login.php");
-exit();
-?>
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && csrf_valido()) {
+    cerrar_sesion();
+    session_start();
+    flash('success', 'Sesión cerrada correctamente.');
+}
+
+redirigir(RUTA_LOGIN);
