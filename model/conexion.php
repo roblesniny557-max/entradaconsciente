@@ -30,14 +30,18 @@ function conexion(): PDO
         if (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
             $opciones[constant('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')] = false;
         }
-        // Verificamos si la constante de CA existe antes de usarla para evitar el error fatal
         if (defined('PDO::MYSQL_ATTR_SSL_CA')) {
             $opciones[PDO::MYSQL_ATTR_SSL_CA] = true;
         }
     }
 
-    $pdo = new PDO($dsn, config('db_user'), config('db_pass'), $opciones);
-    // Hora de Colombia para NOW() y DATE() en la sesión SQL
-    $pdo->exec("SET time_zone = '-05:00'");
-    return $pdo; // holaaaaaaaaaaaa
+    try {
+        $pdo = new PDO($dsn, config('db_user'), config('db_pass'), $opciones);
+        // Hora de Colombia para NOW() y DATE() en la sesión SQL
+        $pdo->exec("SET time_zone = '-05:00'");
+        return $pdo;
+    } catch (PDOException $e) {
+        // Muestra el error exacto de la base de datos para diagnosticar en Render
+        die("Error de conexión real con la BD: " . $e->getMessage());
+    }
 }
