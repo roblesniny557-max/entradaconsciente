@@ -17,7 +17,7 @@ Sistema de asistencia de clase para la IE Carlos Lleras Restrepo (PHP 8 + MySQL/
 1. Copie `config/config.example.php` como `config/config.local.php` y complete los datos de la base de datos. Ese archivo no se sube a git.
 2. Si la base de datos es nueva, ejecute `database/schema.sql`. Crea el usuario `admin` con contraseña `admin123`; cámbiela al ingresar.
 3. Opcional, en una base de datos existente: `php database/migrate.php`. Agrega un índice e importa los 30 estudiantes de 11B que antes estaban escritos en el código.
-4. Para desarrollo local: `php -S localhost:8000` y abrir http://localhost:8000
+4. Para desarrollo local: `php -S localhost:8000` y abrir https://localhost:8000
 
 ## Estructura
 
