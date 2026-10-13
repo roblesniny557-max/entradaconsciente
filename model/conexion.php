@@ -28,17 +28,11 @@ function conexion(): PDO
 
     if (config('db_ssl')) {
         if (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
-            // PHP compilado con mysqlnd (caso más común en hosting)
-            $opciones[PDO::MYSQL_ATTR_SSL_CA] = true;
             $opciones[constant('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')] = false;
-        } else {
-            // PHP compilado con libmysqlclient
-            foreach (['/etc/ssl/certs/ca-certificates.crt', '/etc/pki/tls/certs/ca-bundle.crt'] as $ca) {
-                if (file_exists($ca)) {
-                    $opciones[PDO::MYSQL_ATTR_SSL_CA] = $ca;
-                    break;
-                }
-            }
+        }
+        // Verificamos si la constante de CA existe antes de usarla para evitar el error fatal
+        if (defined('PDO::MYSQL_ATTR_SSL_CA')) {
+            $opciones[PDO::MYSQL_ATTR_SSL_CA] = true;
         }
     }
 
