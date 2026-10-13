@@ -39,5 +39,5 @@ function conexion(): PDO
     $pdo = new PDO($dsn, config('db_user'), config('db_pass'), $opciones);
     // Hora de Colombia para NOW() y DATE() en la sesión SQL
     $pdo->exec("SET time_zone = '-05:00'");
-    return $pdo;
+    return $pdo; // holaaaaaaaaaaaa
 }
