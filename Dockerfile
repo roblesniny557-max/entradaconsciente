@@ -1,8 +1,5 @@
 FROM php:8.2-apache
 
-# Habilitar el módulo rewrite de Apache para que .htaccess funcione correctamente
-RUN a2enmod rewrite
-
 # Instalar la extensión pdo_mysql requerida por PHP
 RUN docker-php-ext-install pdo_mysql
 
